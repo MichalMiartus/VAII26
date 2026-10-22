@@ -23,7 +23,7 @@
             <button>+ Nový projekt</button>
             <h2>Moje projekty</h2>
             <ul>
-                <li><a href="" class="active">VAII</a></li>
+                <li><a href="project.html" class="active" aria-current="page">VAII</a></li>
                 <li><a href="">MaS</a></li>
                 <li><a href="">POS</a></li>
             </ul>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="project-actions">
                     <button type="button">Členovia (3)</button>
-                    <button type="button">+ Nová úloha</button>
+                    <button type="button" class="primary-action">+ Nová úloha</button>
                 </div>
             </div>
 
@@ -68,7 +68,7 @@
                     <option value="low">Nízka</option>
                 </select>
                 <select name="assignee" aria-label="Filtrovať podľa priradeného používateľa">
-                    <option value="">Všetci</option>
+                    <option value="">Všetci členovia</option>
                     <option value="michal">Michal</option>
                     <option value="peter">Peter</option>
                     <option value="lucia">Lucia</option>
@@ -78,33 +78,57 @@
             <div class="content-placeholder">
                 <div class="kanban-board">
                     <section class="kanban-column">
-                        <h3>TO DO</h3>
+                        <h3>TO DO <span class="column-count">2</span></h3>
                         <div class="task-list">
                             <article class="task-card">
                                 <h4>Implementovať databázu</h4>
-                                <p class="task-priority">Vysoká priorita</p>
+                                <p class="task-priority priority-high">Vysoká priorita</p>
+                                <div class="task-footer">
+                                    <p class="task-meta">
+                                        Termín: <time datetime="2026-11-22">22. 11. 2026</time>
+                                    </p>
+                                    <p class="task-meta">Priradený: Michal Miartuš</p>
+                                </div>
                             </article>
                             <article class="task-card">
                                 <h4>Registrácia používateľov</h4>
-                                <p class="task-priority">Stredná priorita</p>
+                                <p class="task-priority priority-medium">Stredná priorita</p>
+                                <div class="task-footer">
+                                    <p class="task-meta">
+                                        Termín: <time datetime="2026-11-30">30. 11. 2026</time>
+                                    </p>
+                                    <p class="task-meta">Priradený: Peter Kováč</p>
+                                </div>
                             </article>
                         </div>
                     </section>
                     <section class="kanban-column">
-                        <h3>IN PROGRESS</h3>
+                        <h3>IN PROGRESS <span class="column-count">1</span></h3>
                         <div class="task-list">
                             <article class="task-card">
                                 <h4>HTML a CSS implementácia</h4>
-                                <p class="task-priority">Stredná priorita</p>
+                                <p class="task-priority priority-medium">Stredná priorita</p>
+                                <div class="task-footer">
+                                    <p class="task-meta">
+                                        Termín: <time datetime="2026-10-28">28. 10. 2026</time>
+                                    </p>
+                                    <p class="task-meta">Priradený: Michal Miartuš</p>
+                                </div>
                             </article>
                         </div>
                     </section>
                     <section class="kanban-column">
-                        <h3>DONE</h3>
+                        <h3>DONE <span class="column-count">1</span></h3>
                         <div class="task-list">
                             <article class="task-card">
                                 <h4>Vytvorenie WireFramov</h4>
-                                <p class="task-priority">Nízka priorita</p>
+                                <p class="task-priority priority-low">Nízka priorita</p>
+                                <div class="task-footer">
+                                    <p class="task-meta">
+                                        Termín: <time datetime="2026-10-15">15. 10. 2026</time>
+                                    </p>
+                                    <p class="task-meta">Priradený: Lucia Nováková</p>
+                                </div>
                             </article>
                         </div>
                     </section>
