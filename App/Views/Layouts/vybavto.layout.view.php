@@ -1,0 +1,62 @@
+<?php
+/** @var \Framework\Support\LinkGenerator $link */
+/** @var string $contentHTML */
+$currentAction = strtolower($_GET['a'] ?? 'index');
+?>
+
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js" defer></script>
+    <title>VybavTo</title>
+</head>
+<body>
+    <div class="app-container">
+        <aside id="mobile-sidebar">
+            <h1>VybavTo</h1>
+            <nav>
+                <ul>
+                    <li><a href="<?= $link->url('home.dashboard') ?>"
+                           class="<?= $currentAction === 'dashboard' ? 'active' : ''?>"
+                           <?= $currentAction === 'dashboard' ? 'aria-current="page"' : '' ?>>Dashboard</a></li>
+                    <li><a href="">Moje úlohy</a></li>
+                    <li><a href="">Projekty</a></li>
+                </ul>
+            </nav>
+            <section>
+                <button>+ Nový projekt</button>
+                <h2>Moje projekty</h2>
+                <ul>
+                    <li><a href="<?= $link->url('home.project') ?>"
+                           class="<?= $currentAction === 'project' ? 'active' : ''?>"
+                           <?= $currentAction === 'project' ? 'aria-current="page"' : '' ?>>VAII</a></li>
+                    <li><a href="">MaS</a></li>
+                    <li><a href="">POS</a></li>
+                </ul>
+            </section>
+        </aside>
+
+        <header>
+            <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-label="Otvoriť navigáciu"
+                    aria-controls="mobile-sidebar">
+                ☰
+            </button>
+            <button type="button" class="user-menu-toggle">
+                <span class="avatar"></span>
+                <span class="user-name">Michal Miartuš</span>
+                <span class="user-menu-arrow">▼</span>
+            </button>
+        </header>
+
+        <main>
+            <div class="dashboard-content">
+                <?= $contentHTML ?>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
