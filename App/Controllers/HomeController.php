@@ -39,7 +39,7 @@ class HomeController extends BaseController
      */
     public function index(Request $request): Response
     {
-        return $this->redirect($this->url('home.dashboard'));
+        return $this->html();
     }
 
     /**
@@ -53,11 +53,6 @@ class HomeController extends BaseController
     public function contact(Request $request): Response
     {
         return $this->html();
-    }
-
-    public function dashboard(Request $request): Response
-    {
-        return$this->html();
     }
 
     public function project(Request $request): Response

@@ -10,9 +10,9 @@ $currentAction = strtolower($_GET['a'] ?? 'index');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/script.js" defer></script>
-    <title>VybavTo</title>
+    <link rel="stylesheet" href="<?= $link->asset('css/style.css') ?>">
+    <script src="<?= $link->asset('js/script.js') ?>" defer></script>
+    <title><?= \App\Configuration::APP_NAME ?></title>
 </head>
 <body>
     <div class="app-container">
@@ -20,9 +20,9 @@ $currentAction = strtolower($_GET['a'] ?? 'index');
             <h1>VybavTo</h1>
             <nav>
                 <ul>
-                    <li><a href="<?= $link->url('home.dashboard') ?>"
-                           class="<?= $currentAction === 'dashboard' ? 'active' : ''?>"
-                           <?= $currentAction === 'dashboard' ? 'aria-current="page"' : '' ?>>Dashboard</a></li>
+                    <li><a href="<?= $link->url('home.index') ?>"
+                           class="<?= $currentAction === 'index' ? 'active' : ''?>"
+                           <?= $currentAction === 'index' ? 'aria-current="page"' : '' ?>>Dashboard</a></li>
                     <li><a href="">Moje úlohy</a></li>
                     <li><a href="">Projekty</a></li>
                 </ul>
