@@ -23,7 +23,7 @@ $currentAction = strtolower($_GET['a'] ?? 'index');
                     <li><a href="<?= $link->url('home.index') ?>"
                            class="<?= $currentAction === 'index' ? 'active' : ''?>"
                            <?= $currentAction === 'index' ? 'aria-current="page"' : '' ?>>Dashboard</a></li>
-                    <li><a href="">Moje úlohy</a></li>
+                    <li><a href="<?= $link->url('task.index') ?>">Moje úlohy</a></li>
                     <li><a href="">Projekty</a></li>
                 </ul>
             </nav>
