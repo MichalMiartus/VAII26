@@ -5,9 +5,9 @@
 $view->setLayout('vybavto');
 ?>
 
-<h1><?= $task->getId() === null ? 'Nová úloha' : 'Upraviť úlohu' ?></h1>
+<h1 class="task-page-title"><?= $task->getId() === null ? 'Nová úloha' : 'Upraviť úlohu' ?></h1>
 
-<form method="post" action="<?= $link->url('task.save') ?>">
+<form class="task-form" method="post" action="<?= $link->url('task.save') ?>">
     <input type="hidden" name="id" value="<?= $task->getId() ?>">
 
     <label for="title">Názov úlohy</label>

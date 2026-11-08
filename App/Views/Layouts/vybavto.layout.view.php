@@ -1,6 +1,7 @@
 <?php
 /** @var \Framework\Support\LinkGenerator $link */
 /** @var string $contentHTML */
+$currentController = strtolower($_GET['c'] ?? 'home');
 $currentAction = strtolower($_GET['a'] ?? 'index');
 ?>
 
@@ -20,10 +21,20 @@ $currentAction = strtolower($_GET['a'] ?? 'index');
             <h1>VybavTo</h1>
             <nav>
                 <ul>
-                    <li><a href="<?= $link->url('home.index') ?>"
-                           class="<?= $currentAction === 'index' ? 'active' : ''?>"
-                           <?= $currentAction === 'index' ? 'aria-current="page"' : '' ?>>Dashboard</a></li>
-                    <li><a href="<?= $link->url('task.index') ?>">Moje úlohy</a></li>
+                    <li>
+                        <a href="<?= $link->url('home.index') ?>"
+                           class="<?= $currentAction === 'index' && $currentController === 'home' ? 'active' : ''?>"
+                           <?= $currentAction === 'index' && $currentController === 'home' ? 'aria-current="page"' : '' ?>>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= $link->url('task.index') ?>"
+                           class="<?= $currentController === 'task' ? 'active' : '' ?>"
+                                <?= $currentController === 'task' && $currentAction === 'index' ? 'aria-current="page"' : '' ?>>
+                            Moje úlohy
+                        </a>
+                    </li>
                     <li><a href="">Projekty</a></li>
                 </ul>
             </nav>
@@ -31,9 +42,13 @@ $currentAction = strtolower($_GET['a'] ?? 'index');
                 <button>+ Nový projekt</button>
                 <h2>Moje projekty</h2>
                 <ul>
-                    <li><a href="<?= $link->url('home.project') ?>"
-                           class="<?= $currentAction === 'project' ? 'active' : ''?>"
-                           <?= $currentAction === 'project' ? 'aria-current="page"' : '' ?>>VAII</a></li>
+                    <li>
+                        <a href="<?= $link->url('home.project') ?>"
+                           class="<?= $currentController === 'home' && $currentAction === 'project' ? 'active' : '' ?>"
+                                <?= $currentController === 'home' && $currentAction === 'project' ? 'aria-current="page"' : '' ?>>
+                            VAII
+                        </a>
+                    </li>
                     <li><a href="">MaS</a></li>
                     <li><a href="">POS</a></li>
                 </ul>
