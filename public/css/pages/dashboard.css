@@ -1,0 +1,141 @@
+/* 04. Dashboard
+   ========================================================================== */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+    padding: 24px;
+}
+
+.stat-card h3 {
+    color: var(--color-muted);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.stat-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-icon {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+}
+
+.dashboard-projects {
+    margin-top: 32px;
+}
+
+.dashboard-projects > h3 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.project-card-info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.project-card-info p {
+    margin-top: 4px;
+    color: var(--color-muted);
+    font-size: 14px;
+}
+
+.project-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: var(--color-low-bg);
+    color: var(--color-low-text);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.project-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    color: var(--color-muted);
+    font-size: 14px;
+}
+
+.project-progress-header span:last-child {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.project-progress progress {
+    display: block;
+    width: 100%;
+    height: 10px;
+    appearance: none;
+    border: 0;
+    border-radius: 999px;
+    overflow: hidden;
+    accent-color: #444444;
+}
+
+.project-progress progress::-webkit-progress-bar {
+    border-radius: 999px;
+    background: var(--color-border);
+}
+
+.project-progress progress::-webkit-progress-value {
+    border-radius: 999px;
+    background: #444444;
+}
+
+.project-progress progress::-moz-progress-bar {
+    border-radius: 999px;
+    background: #444444;
+}
+
+.project-card-link {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+
+@media (max-width: 1100px) {
+    .dashboard-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+}

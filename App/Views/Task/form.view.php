@@ -2,6 +2,7 @@
 /** @var \Framework\Support\View $view */
 /** @var \Framework\Support\LinkGenerator $link */
 /** @var \App\Models\Task $task */
+/** @var \App\Models\Project[] $projects */
 $view->setLayout('vybavto');
 ?>
 
@@ -34,6 +35,18 @@ $view->setLayout('vybavto');
     <label for="due_date">Termín dokončenia</label>
     <input type="date" id="due_date" name="due_date"
            value="<?= e($task->getDueDate()) ?>">
+
+    <label for="project_id">Projekt</label>
+    <select id="project_id" name="project_id" required>
+        <option value="">Vyber projekt</option>
+
+        <?php foreach ($projects as $project): ?>
+            <option value="<?= $project->getId() ?>"
+                    <?= $task->getProjectId() === $project->getId() ? 'selected' : '' ?>>
+                <?= e($project->getName() ?? '') ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
 
     <button type="submit">
         <?= $task->getId() === null ? 'Pridať úlohu' : 'Uložiť zmeny' ?>

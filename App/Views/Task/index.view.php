@@ -1,5 +1,6 @@
 <?php
 /** @var \Framework\Support\View $view */
+
 /** @var \Framework\Support\LinkGenerator $link */
 /** @var \App\Models\Task[] $tasks */
 
@@ -19,6 +20,7 @@ $priorityLabels = [
 ?>
 
 <section class="tasks-page">
+
     <div class="tasks-header">
         <div>
             <h1>Moje úlohy</h1>
@@ -31,58 +33,121 @@ $priorityLabels = [
         </a>
     </div>
 
-    <?php if (empty($tasks)): ?>
+    <?php
+    if (empty($tasks)): ?>
+
         <div class="tasks-empty">
             <p>Zatiaľ nemáš žiadne úlohy.</p>
         </div>
-    <?php else: ?>
+
+    <?php
+    else: ?>
+
         <ul class="tasks-list">
-            <?php foreach ($tasks as $task): ?>
+
+            <?php
+            foreach ($tasks as $task): ?>
+                <?php
+                $project = $task->getProject(); ?>
+
                 <li class="task-item">
+
                     <div class="task-item-header">
-                        <h2><?= e($task->getTitle() ?? '') ?></h2>
+
+                        <div class="task-item-title">
+                            <h2>
+                                <?= e($task->getTitle() ?? '') ?>
+                            </h2>
+
+                            <?php
+                            if ($project !== null): ?>
+                                <a class="task-project-link"
+                                   href="<?= $link->url('project.show', [
+                                           'id' => $project->getId()
+                                   ]) ?>">
+                                    <?= e($project->getName() ?? '') ?>
+                                </a>
+                            <?php
+                            endif; ?>
+                        </div>
 
                         <span class="task-priority task-priority--<?= e($task->getPriority()) ?>">
-                            <?= e($priorityLabels[$task->getPriority()] ?? $task->getPriority()) ?>
+                            <?= e(
+                                    $priorityLabels[$task->getPriority()]
+                                    ?? $task->getPriority()
+                            ) ?>
                         </span>
+
                     </div>
 
-                    <?php if ($task->getDescription()): ?>
+                    <?php
+                    if ($task->getDescription()): ?>
                         <p class="task-description"><?= e($task->getDescription()) ?></p>
-                    <?php endif; ?>
+                    <?php
+                    endif; ?>
 
                     <div class="task-item-footer">
+
                         <div class="task-meta">
+
                             <span class="task-status task-status--<?= e($task->getStatus()) ?>">
-                                <?= e($statusLabels[$task->getStatus()] ?? $task->getStatus()) ?>
+                                <?= e(
+                                        $statusLabels[$task->getStatus()]
+                                        ?? $task->getStatus()
+                                ) ?>
                             </span>
 
-                            <?php if ($task->getDueDate()): ?>
+                            <?php
+                            if ($task->getDueDate()): ?>
                                 <span class="task-due-date">
-                                    Termín: <?= e($task->getDueDate()) ?>
+                                    Termín:
+                                    <?= e(
+                                            date(
+                                                    'j. n. Y',
+                                                    strtotime($task->getDueDate())
+                                            )
+                                    ) ?>
                                 </span>
-                            <?php endif; ?>
+                            <?php
+                            endif; ?>
+
                         </div>
 
                         <div class="task-actions">
+
                             <a class="task-edit-button"
-                               href="<?= $link->url('task.edit', ['id' => $task->getId()]) ?>">
+                               href="<?= $link->url('task.edit', [
+                                       'id' => $task->getId()
+                               ]) ?>">
                                 Upraviť
                             </a>
 
                             <form method="post"
                                   action="<?= $link->url('task.delete') ?>">
-                                <input type="hidden" name="id"
+
+                                <input type="hidden"
+                                       name="id"
                                        value="<?= $task->getId() ?>">
+
                                 <button class="task-delete-button"
                                         type="submit">
                                     Odstrániť
                                 </button>
+
                             </form>
+
                         </div>
+
                     </div>
+
                 </li>
-            <?php endforeach; ?>
+
+            <?php
+            endforeach; ?>
+
         </ul>
-    <?php endif; ?>
+
+    <?php
+    endif; ?>
+
 </section>

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Task;
+use App\Models\Project;
 use Framework\Core\BaseController;
 use Framework\Http\Request;
 use Framework\Http\Responses\Response;
@@ -19,13 +20,29 @@ class TaskController extends BaseController
         ]);
     }
 
+
     public function add(Request $request): Response
     {
+        $task = new Task();
+
+        $projectId = filter_var(
+            $request->get('project_id'),
+            FILTER_VALIDATE_INT
+        );
+
+        if (is_int($projectId) && $projectId > 0) {
+            if (Project::getOne($projectId) !== null) {
+                $task->setProjectId($projectId);
+            }
+        }
+
         return $this->html([
-            'task' => new Task(),
+            'task' => $task,
+            'projects' => Project::getAll(),
             'errors' => []
         ], 'form');
     }
+
 
 
     public function save(Request $request): Response
@@ -48,6 +65,19 @@ class TaskController extends BaseController
             throw new HttpException(400);
         }
 
+        $projectId = filter_var(
+            $request->post('project_id'),
+            FILTER_VALIDATE_INT
+        );
+
+        if (!is_int($projectId) || $projectId <= 0) {
+            throw new HttpException(400);
+        }
+
+        if (Project::getOne($projectId) === null) {
+            throw new HttpException(400);
+        }
+
         $id = (int) $request->post('id');
 
         if ($id > 0) {
@@ -65,6 +95,7 @@ class TaskController extends BaseController
         $task->setStatus($status);
         $task->setPriority($priority);
         $task->setDueDate($request->post('due_date') ?: null);
+        $task->setProjectId($projectId);
 
         $task->save();
 
@@ -83,6 +114,7 @@ class TaskController extends BaseController
 
         return $this->html([
             'task' => $task,
+            'projects' => Project::getAll(),
             'errors' => []
         ], 'form');
     }

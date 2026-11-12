@@ -1,0 +1,212 @@
+/* 02. App shell & navigation
+   ========================================================================== */
+.app-container {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-rows: 64px minmax(0, 1fr);
+    min-height: 100vh;
+}
+
+.app-container > aside {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding: 24px 20px;
+    background: var(--color-surface);
+    border-right: 1px solid var(--color-border);
+}
+
+.app-container > aside h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+}
+
+.app-container > aside nav ul,
+.app-container > aside section ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0;
+    list-style: none;
+}
+
+.app-container > aside a {
+    display: block;
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    color: #555353;
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+}
+
+.app-container > aside nav a {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.app-container > aside section a {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.app-container > aside a.active {
+    color: var(--color-text);
+    background: var(--color-active);
+    font-weight: 600;
+}
+
+.app-container > aside a:hover:not(.active) {
+    background: var(--color-hover);
+}
+
+.app-container > aside section h2 {
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    text-transform: uppercase;
+}
+
+/* Works for the original button and the newer "Nový projekt" link. */
+.app-container > aside section > button,
+.app-container > aside section > a {
+    display: block;
+    width: fit-content;
+    margin-bottom: 24px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: #555353;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-decoration: none;
+}
+
+.app-container > aside section > button:hover,
+.app-container > aside section > a:hover {
+    background: var(--color-hover);
+}
+
+.app-container > header {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 24px;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.user-menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px;
+    border: 0;
+    background: transparent;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    border-radius: 50%;
+    background: #999999;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-soft);
+}
+
+.user-menu-arrow {
+    font-size: 12px;
+    color: var(--color-muted);
+}
+
+.mobile-menu-toggle {
+    display: none;
+    padding: 4px 8px;
+    border: 0;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 24px;
+}
+
+.app-container > main {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+    padding: 32px;
+    background: var(--color-background);
+}
+
+.dashboard-content {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+.dashboard-content > h2 {
+    margin-bottom: 24px;
+    font-size: 28px;
+    line-height: 36px;
+}
+
+
+/* The app shell adapts regardless of the active page. */
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .app-container > aside {
+        display: none;
+    }
+
+    .app-container > aside.open {
+        position: fixed;
+        z-index: 100;
+        top: 64px;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        width: 240px;
+        overflow-y: auto;
+        box-shadow: 8px 0 20px rgb(0 0 0 / 8%);
+    }
+
+    .app-container > header {
+        grid-column: 1;
+        justify-content: space-between;
+        padding-inline: 16px;
+    }
+
+    .app-container > main {
+        grid-column: 1;
+        padding: 16px;
+    }
+
+    .mobile-menu-toggle {
+        display: inline-flex;
+    }
+
+    .dashboard-content > h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .user-name {
+        display: none;
+    }
+}

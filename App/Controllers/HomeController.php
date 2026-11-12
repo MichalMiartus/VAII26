@@ -5,6 +5,8 @@ namespace App\Controllers;
 use Framework\Core\BaseController;
 use Framework\Http\Request;
 use Framework\Http\Responses\Response;
+use App\Models\Task;
+use App\Models\Project;
 
 /**
  * Class HomeController
@@ -37,10 +39,46 @@ class HomeController extends BaseController
      *
      * @return Response The response object containing the rendered HTML for the home page.
      */
+
+
     public function index(Request $request): Response
     {
-        return $this->html();
+        $projects = Project::getAll();
+        $completedProjects = 0;
+
+        foreach ($projects as $project) {
+            $tasks = $project->getTasks();
+
+            if (empty($tasks)) {
+                continue;
+            }
+
+            $completedTasks = array_filter(
+                $tasks,
+                fn($task) => $task->getStatus() === 'done'
+            );
+
+            if (count($completedTasks) === count($tasks)) {
+                $completedProjects++;
+            }
+        }
+
+        return $this->html([
+            'activeTasks' => Task::getCount(
+                'status != ?', ['done']
+            ),
+            'inProgressTasks' => Task::getCount(
+                'status = ?', ['in_progress']
+            ),
+            'completedTasks' => Task::getCount(
+                'status = ?', ['done']
+            ),
+            'completedProjects' => $completedProjects,
+            'projects' => $projects
+        ]);
     }
+
+
 
     /**
      * Displays the contact page.
@@ -53,10 +91,5 @@ class HomeController extends BaseController
     public function contact(Request $request): Response
     {
         return $this->html();
-    }
-
-    public function project(Request $request): Response
-    {
-        return$this->html();
     }
 }

@@ -12,6 +12,7 @@ class Task extends Model
     protected ?string $status = 'todo';
     protected ?string $priority = 'medium';
     protected ?string $due_date = null;
+    protected ?int $project_id = null;
 
     public function getTitle(): ?string
     {
@@ -66,5 +67,20 @@ class Task extends Model
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getProjectId(): ?int
+    {
+        return $this->project_id;
+    }
+
+    public function setProjectId(?int $project_id): void
+    {
+        $this->project_id = $project_id;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->getOneRelated(Project::class, 'project_id');
     }
 }
