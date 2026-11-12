@@ -18,6 +18,19 @@ $priorities = [
         'medium' => 'Stredná priorita',
         'high' => 'Vysoká priorita'
 ];
+
+$totalTasks = count($tasks);
+
+$completedTasks = count(
+        array_filter(
+                $tasks,
+                fn($task) => $task->getStatus() === 'done'
+        )
+);
+
+$progress = $totalTasks > 0
+        ? round($completedTasks / $totalTasks * 100)
+        : 0;
 ?>
 
 <div class="project-detail">
@@ -38,6 +51,25 @@ $priorities = [
                 <p><?= e($project->getDescription()) ?></p>
             <?php
             endif; ?>
+
+
+            <div class="project-summary">
+                <div class="project-summary-label">
+                <span>
+                    Dokončené: <?= $completedTasks ?> z <?= $totalTasks ?> úloh
+                </span>
+
+                    <strong><?= $progress ?> %</strong>
+                </div>
+
+                <progress
+                        value="<?= $completedTasks ?>"
+                        max="<?= max(1, $totalTasks) ?>"
+                        aria-label="Dokončenie projektu">
+                    <?= $progress ?> %
+                </progress>
+            </div>
+
         </div>
 
         <div class="project-actions">
@@ -66,12 +98,14 @@ $priorities = [
                 aria-label="Vyhľadať úlohu"
         >
 
-        <select id="kanban-status" aria-label="Filtrovať podľa stavu">
-            <option value="">Všetky stavy</option>
-            <option value="todo">TO DO</option>
-            <option value="in_progress">IN PROGRESS</option>
-            <option value="done">DONE</option>
+        <select id="kanban-due-date" aria-label="Filtrovať podľa termínu">
+            <option value="">Všetky termíny</option>
+            <option value="overdue">Po termíne</option>
+            <option value="today">Dnes</option>
+            <option value="next-7-days">Nasledujúcich 7 dní</option>
+            <option value="no-date">Bez termínu</option>
         </select>
+
 
         <select id="kanban-priority" aria-label="Filtrovať podľa priority">
             <option value="">Všetky priority</option>
@@ -112,7 +146,7 @@ $priorities = [
                         foreach ($columnTasks as $task): ?>
 
 
-                            <article class="task-card">
+                            <article class="task-card" data-priority="<?= e($task->getPriority()) ?>">
 
                                 <div class="kanban-task-heading">
                                     <h4 class="kanban-task-title">
@@ -164,11 +198,23 @@ $priorities = [
                         <?php
                         endforeach; ?>
 
+
                         <?php
                         if (empty($columnTasks)): ?>
-                            <p class="kanban-empty">Žiadne úlohy</p>
+                            <div class="kanban-empty">
+                                <img src="<?= $link->asset('assets/icons/list-todo.svg') ?>"
+                                     alt=""
+                                     width="24"
+                                     height="24">
+
+                                <span>Zatiaľ žiadne úlohy</span>
+                            </div>
                         <?php
                         endif; ?>
+
+                        <p class="kanban-filter-empty" hidden>
+                            Žiadne úlohy nezodpovedajú filtru.
+                        </p>
 
                     </div>
 
@@ -182,3 +228,5 @@ $priorities = [
     </div>
 
 </div>
+
+<script src="<?= $link->asset('js/kanban-filters.js') ?>" defer></script>

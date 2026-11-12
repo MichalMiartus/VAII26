@@ -80,8 +80,11 @@ $pageStyles = match (true) {
                 </li>
                 <li>
                     <a href="<?= $link->url('project.index') ?>"
-                       class="<?= $currentController === 'project' ? 'active' : '' ?>"
-                            <?= $currentController === 'project' && $currentAction === 'index' ? 'aria-current="page"' : '' ?>>
+                       class="<?= $currentController === 'project'
+                       && $currentAction === 'index' ? 'active' : '' ?>"
+                            <?= $currentController === 'project'
+                            && $currentAction === 'index'
+                                    ? 'aria-current="page"' : '' ?>>
                         Projekty
                     </a>
                 </li>
@@ -93,17 +96,29 @@ $pageStyles = match (true) {
             </a>
             <h2>Moje projekty</h2>
             <ul>
+
                 <?php
                 foreach ($sidebarProjects as $sidebarProject): ?>
+                    <?php
+                    $isActiveProject =
+                            $currentController === 'project'
+                            && $currentAction === 'show'
+                            && (int)($_GET['id'] ?? 0) === $sidebarProject->getId();
+                    ?>
+
                     <li>
                         <a href="<?= $link->url('project.show', [
                                 'id' => $sidebarProject->getId()
-                        ]) ?>">
+                        ]) ?>"
+                           class="<?= $isActiveProject ? 'active' : '' ?>"
+                                <?= $isActiveProject ? 'aria-current="page"' : '' ?>>
+
                             <?= e($sidebarProject->getName() ?? '') ?>
                         </a>
                     </li>
                 <?php
                 endforeach; ?>
+
             </ul>
         </section>
     </aside>
