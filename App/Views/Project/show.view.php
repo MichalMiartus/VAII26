@@ -146,7 +146,10 @@ $progress = $totalTasks > 0
                         foreach ($columnTasks as $task): ?>
 
 
-                            <article class="task-card" data-priority="<?= e($task->getPriority()) ?>">
+                            <article class="task-card"
+                                     data-priority="<?= e($task->getPriority()) ?>"
+                                     data-due-date="<?= e($task->getDueDate()) ?>"
+                                     data-status="<?= e($task->getStatus()) ?>">
 
                                 <div class="kanban-task-heading">
                                     <h4 class="kanban-task-title">
